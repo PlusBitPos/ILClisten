@@ -81,7 +81,7 @@ TransactionSocket.init = function() {
 				// or if a donation
 				if( (parsedAmt >= window.globalEOSValueSelected && parsedAmt <= 25000) || isDonation) {
 					var from = data.data.trace.act.data.from;
-					new Transaction(parseFloat(parsedAmt), Boolean(parsedAmt===10), from);
+					new Transaction(parseFloat(parsedAmt), isDonation, from);
 				}
 
 			} catch(error) {

@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }, true);
 });
 
+document.addEventListener("DOMContentLoaded", function(event) {
+    document.body.addEventListener('touchstart', function() {
+        document.getElementById("waitingForTransactions").style.opacity = "0";
+    }, true);
+});
+
 function Sound() {
 
 }
