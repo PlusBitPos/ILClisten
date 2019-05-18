@@ -1,8 +1,12 @@
+
 var satoshi = 100000000;
 var DELAY_CAP = 20000;
 var lastBlockHeight = 0;
 
-var provider_name = "blockchain.info";
+// set default value to 1, if none is chosen.
+if(!window.globalEOSValueSelected) {
+	window.globalEOSValueSelected = 5;
+}
 
 var transactionSocketDelay = 1000;
 
@@ -16,8 +20,12 @@ TransactionSocket.init = function() {
 	if (TransactionSocket.connection)
 		TransactionSocket.connection.close();
 
+	var dfusetoken = 'mobile_c6d41c54b990990f7bb81385351a1728';
+
+
 	if ('WebSocket' in window) {
-		var connection = new ReconnectingWebSocket('wss://ws.blockchain.info/inv');
+		var token = 'eyJhbGciOiJLTVNFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTgyMDc1MzQsImp0aSI6ImU0YjA3OWM2LTAxODYtNGE4Ni1iN2NjLTM4YWYxOTY0ODE1YSIsImlhdCI6MTU1ODEyMTEzNCwiaXNzIjoiZGZ1c2UuaW8iLCJzdWIiOiJ1aWQ6MHZpdGE2ZjgwOGM1NmJiNTFjODVlIiwiYWtpIjoiNzZhODAwZWE4NTQ3NTU4ZmIzOTU4N2ZkOWE5ZjVmOTJlNTFhYmMwOWQ4OGI5NWRjMTlmYzUwN2IzNThmMTE0OCIsInRpZXIiOiJmcmVlLXYxIiwic3RibGsiOi0zNjAwLCJ2IjoxfQ.4ah3ewuuh2d_AMMVNAh6f9BdmR3163Ciz0fwF5805ny60Ybi6RYmZNY66FrVJEth4PqUAqeSwJE5o9xNXBDnxw';
+		var connection = new ReconnectingWebSocket('wss://mainnet.eos.dfuse.io/v1/stream?token='+token);
 		TransactionSocket.connection = connection;
 
 		StatusBox.reconnecting("blockchain");
@@ -26,16 +34,18 @@ TransactionSocket.init = function() {
 			console.log('Blockchain.info: Connection open!');
 			StatusBox.connected("blockchain");
 			var newTransactions = {
-				"op" : "unconfirmed_sub"
-			};
-			var newBlocks = {
-				"op" : "blocks_sub"
-			};
+				"type": "get_action_traces",
+				"listen": true,
+				"req_id": "your-request-id-1",
+				"irreversible_only": false,
+				"data": {
+				  "accounts": "eosio.token",
+				  "action_name": "transfer",
+				  "with_dtrxops": true,
+				}
+			  };
+
 			connection.send(JSON.stringify(newTransactions));
-			connection.send(JSON.stringify(newBlocks));
-			connection.send(JSON.stringify({
-				"op" : "ping_tx"
-			}));
 			// Display the latest transaction so the user sees something.
 		};
 
@@ -51,58 +61,31 @@ TransactionSocket.init = function() {
 			console.log('Blockchain.info: Connection Error: ' + error);
 		};
 
-		connection.onmessage = function(e) {
-			
-			var data = JSON.parse(e.data);
-			
-			if (data.op == "no_data") {
-			    TransactionSocket.close();
-			    setTimeout(TransactionSocket.init, transactionSocketDelay);
-			    transactionSocketDelay *= 2;
-			    console.log("connection borked, reconnecting");
-			}
+		connection.onmessage = function(e,msg,another) {
 
-			// New Transaction
-			if (data.op == "utx") {
-				var transacted = 0;
+			try {
+				var data = JSON.parse(e.data);
+				var amount = data.data.trace.act.data.quantity;
+				var to = data.data.trace.act.data.to;
 
-				for (var i = 0; i < data.x.out.length; i++) {
-					transacted += data.x.out[i].value;
+				/*
+				console.log(amount);
+				console.log(parseFloat(amount));
+				console.log(data);	
+				*/
+
+				var parsedAmt = parseFloat(amount);
+				var isDonation = Boolean(to === "actuallyzach" && parsedAmt >= 0.01);
+
+				// only show higher than sleected value and < 25000 EOS.
+				// or if a donation
+				if( (parsedAmt >= window.globalEOSValueSelected && parsedAmt <= 25000) || isDonation) {
+					var from = data.data.trace.act.data.from;
+					new Transaction(parseFloat(parsedAmt), isDonation, from);
 				}
 
-				var bitcoins = transacted / satoshi;
-				//console.log("Transaction: " + bitcoins + " BTC");
-
-				var donation = false;
-                                var soundDonation = false;
-				var outputs = data.x.out;
-				for (var j = 0; j < outputs.length; j++) {
-					if ((outputs[j].addr) == DONATION_ADDRESS) {
-						bitcoins = data.x.out[j].value / satoshi;
-						new Transaction(bitcoins, true);
-						return;
-					}
-				}
-
-                if (transaction_count === 0) {
-                    new Transaction(bitcoins);
-                } else {
-				    setTimeout(function() {
-					    new Transaction(bitcoins);
-				    }, Math.random() * DELAY_CAP);
-				}
-
-			} else if (data.op == "block") {
-				var blockHeight = data.x.height;
-				var transactions = data.x.nTx;
-				var volumeSent = data.x.estimatedBTCSent;
-				var blockSize = data.x.size;
-				// Filter out the orphaned blocks.
-				if (blockHeight > lastBlockHeight) {
-					lastBlockHeight = blockHeight;
-					console.log("New Block");
-					new Block(blockHeight, transactions, volumeSent, blockSize);
-				}
+			} catch(error) {
+				// could not parse dfuse data.
 			}
 
 		};

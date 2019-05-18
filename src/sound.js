@@ -90,7 +90,7 @@ Sound.init = function() {
 };
 
 Sound.change = function(instrument_number) {
-	var musicianString = "Donate to instrument creator: ";
+	var musicianString = "Instrument creator donate: <br>";
 	var i;
 	// INSTRUMENT 0
 	if (instrument_number === 0 ) {

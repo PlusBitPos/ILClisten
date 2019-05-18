@@ -2,7 +2,7 @@
  *  @constructor
  *  @extends Floatable
  */
-function Transaction(bitcoins, highlight, currency, currencyName) {
+function Transaction(bitcoins, highlight, from, currency, currencyName) {
 	if (document.visibilityState === "visible") {
 		Floatable.call(this);
 
@@ -12,20 +12,23 @@ function Transaction(bitcoins, highlight, currency, currencyName) {
 		this.addImage(bubbleImage, this.width, this.height);
 	
 	    var bitcoinVal = bitcoins.toFixed(2);
-	    var bitcoinString;
-	    
+		var bitcoinString;
+		
 	    if(globalShowDollar === true) {
-    		bitcoinString = "$" + (bitcoins*globalRate).toFixed(0);
-    	} else if (bitcoinVal === "0.00") {
-	        bitcoinString = "&lt;<span class='bitcoinsymbol'>B</span>0.01";
+    		bitcoinString = "$" + (bitcoinVal*globalRate).toFixed(0);
+    	} else if (bitcoinVal < 100) {
+			bitcoinString = bitcoinVal;
+
 	    } else {
-	        bitcoinString = "<span class='bitcoinsymbol'>B</span>" + bitcoinVal;
+	        bitcoinString = bitcoinVal + " EOS" + '<br><span style="color:grey">'+from+'</span>';
 	    }
 	
+		console.log("highlight status", highlight);
+
 		if (!highlight) {
 			this.addText(bitcoinString);
 		} else {
-			this.addText('<span style="color: yellow;">' + bitcoinString + '</span><br /><span style="color: cyan;">Donation</span><br /><span style="color: lime;">Thanks!</span>');
+			this.addText('<span style="color: yellow;">' + bitcoinString + '</span><br /><span style="color: lime; font-weight:bold;">'+from+'</span><br /><span style="color: white;">Thanks!</span>');
 		}
 		if (currency && currencyName) {
 			this.addText('<br />' + currency.toFixed(2) + ' ' + currencyName);

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>BitListen - Bitcoin Transaction Visualizer</title>
-		<meta name="description" content="Realtime Bitcoin transaction visualizer. See and hear new transactions, trades and blocks as they occur.">
-		<meta name="keywords" content="BitListen,Listen To Bitcoin,Bitcoin,transactions,visualizer,trades,mtgox,blockchain">
-		<meta name="author" content="Maximillian Laumeister">
-		<link rel="author" href="https://plus.google.com/100865127821381452608/posts" />
+		<title>EOSListen - EOS Transaction Visualizer</title>
+		<meta name="description" content="Realtime EOS transaction visualizer. See and hear new transactions as they occur.">
 		<link rel="stylesheet" type="text/css" href="jquery.nouislider.custom.css">
 		<link rel="stylesheet" type="text/css" href="engine.css">
+		<link rel="shortcut icon" href="images/eos.png">
 		<!--[if IE]>
 		<link rel="stylesheet" type="text/css" href="ie.css">
 		<![endif]-->
@@ -60,21 +58,17 @@
 	<body>
 		<div id="header" class="serif interface">
 			<div id="rateBox">
-				<span id="rate">---</span> <span id="units">USD / BTC</span><br />
-				<span class="rateButton" id="bitstampRate" onclick="switchExchange('bitstamp');">Bitstamp</span>
+				<span id="rate">---</span> <span id="units">USD / EOS</span><br />
 			</div>
-			<img src="images/logo.png" alt="BitListen">
+			<img src="images/logo.png" alt="EOSListen">
 			<div id="headerInfo">
 				<p>
-					Realtime Bitcoin transaction visualizer. (Formerly 'Listen To Bitcoin').
-				</p>
-				<p>
-					Most donations get highlighted: <span id="donationAddress" qrtarget="bitcoin:1istendqWJ1mKvrdRUQZDL2F3tVDDyKdj">1istendqWJ1mKvrdRUQZDL2F3tVDDyKdj</span>
-					<br />
-					<span id="musicianDonation"></span>
+					Most donations get highlighted: <a href="https://bloks.io/account/actuallyzach" target="_blank" id="donationAddress2"><span>actuallyzach</span></a>					
 				</p>
 				<p class="subdued">
-					By <a href="https://www.maxlaumeister.com/">Maximillian Laumeister</a> &bull; <a href="https://www.maxlaumeister.com/contact/">Contact</a> &bull; <a href="https://github.com/MaxLaumeister/bitlisten">Source Code</a>
+					By <a target="_blank" href="https://www.twitter.com/propelzach">Zach Alam</a>; based on Bitlisten from <a href="https://www.maxlaumeister.com/" target="_blank">Max Laumeister</a> 
+					<br />
+					<a target="_blank" href="https://github.com/zachalam/eoslisten">Source Code</a>
 				</p>
 			</div>
 		</div>
@@ -113,18 +107,37 @@
 							</select>
 							</p>
 							<br />
+							<span id="musicianDonation"></span>
+							<br />
+
+							<p>Minimum EOS Value:
+									<select onchange='window.globalEOSValueSelected = this.value'>
+										<option value="0.01">0.01 EOS</option>
+										<option value="0.25">0.25 EOS</option>
+										<option value="0.5">0.50 EOS</option>
+										<option value="1">1.0 EOS</option>
+										<option value="2">2.0 EOS</option>
+										<option value="5" selected="selected">5.0 EOS</option>
+										<option value="10">10.0 EOS</option>
+										<option value="20">20.0 EOS</option>
+										<option value="50">50.0 EOS</option>
+										<option value="100">100 EOS</option>
+									</select>
+									</p>
+							<br />
+							
 							<p>
 								<label>
 									<input id="scalePitchCheckBox" type='checkbox' checked="checked" onchange='globalScalePitch = this.checked'>
-										Scale pitch with transaction amount<br />(bigger transaction = deeper sound)
+										Scale pitch with transaction amount
 								</label>
 							</p>
 							<p>
 								<label class="disabled">
 								    <input id="showDollarCheckBox" type='checkbox' onchange='globalShowDollar = this.checked' disabled="disabled">
-									Show units in USD instead of BTC
+									Show units in USD instead of EOS
 								</label>
-							</p>
+							</p>						
 						</div>
 
 					</div>
@@ -136,7 +149,7 @@
 			</td>
 			</tr>
 		</table>
-		<div id="hideInterface" class="serif" onclick='toggleInterface()'>[ Hide Interface ]</div>
+		<div id="hideInterface" class="serif" onclick='toggleInterface()'>[ Hide ]</div>
 		<div id="noJavascript">
 			<p>
 				Please enable Javascript, or try a different web browser.

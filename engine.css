@@ -14,7 +14,7 @@ body {
     position: absolute;
 	width: 100%;
 	height: 100%;
-	background-color: black;
+	background-image: url('images/prism.png');
 	overflow: hidden;
 }
 
@@ -28,9 +28,8 @@ a {
 }
 
 #pageDiv {
-	background-color: black;
-	background-image: url('images/background.jpg');
-	font-family: "Times New Roman", Times, serif;
+	background-color: transparent;
+	font-family: "Trebuchet MS", Helvetica, serif;
 	position: relative;
 }
 
@@ -143,11 +142,12 @@ a {
 	color: white;
 	width: 100%;
 	text-align: center;
-	background-color: black;
-	padding: 10px;
+	background-color:rgba(0,0,0,0.25);
+	border-bottom:1px solid #222;
+	padding: 2em;
 }
 
-#donationAddress {
+#donationAddress2 {
 	color: yellow;
 }
 
@@ -335,11 +335,11 @@ a.boxclose{
 }
     
 .serif {
-	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-family: "Trebuchet MS", Helvetica, serif;
 }
 
 .monospace {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "Trebuchet MS", Helvetica, serif;
 }
 
 #waitingForTransactions {

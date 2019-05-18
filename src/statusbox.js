@@ -3,7 +3,7 @@ var CONNECTING = "Connecting...";
 var NO_SUPPORT = "No browser support.";
 var CLOSED = "Click to connect.";
 
-var provider_name = "blockchain.info";
+var provider_name = "dfuse.io";
 
 function StatusBox() {
 

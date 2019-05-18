@@ -53,29 +53,7 @@ $(document).ready(function() {
 		$(".clickSuppress").parent().slideUp(300);
 	});
 
-	// Create a bubble spawner for testing
-	debugSpawner = function() {
-		// Generate some test bubbles
-		if (Math.random() <= 0.1) {
-			// Try to simulate the transaction spread
-			var volume;
-			var order = Math.random();
-			if (order < 0.6) {
-				volume = Math.random();
-			} else if (order < 0.8) {
-				volume = Math.random() * 10;
-			} else if (order < 0.95) {
-				volume = Math.random() * 100;
-			} else {
-				volume = Math.random() * 1000;
-			}
 
-			if (Math.random() < 0.5)
-				new Transaction(volume, false);
-			else
-				new Transaction(volume, false, volume * 75, 'USD');
-		}
-	};
 	// Spam the following line into console, it's kind of fun.
 	// new Block(228158, 270, 100 * satoshi, 153 * 1024);
 	
@@ -90,11 +68,11 @@ $(document).ready(function() {
 var toggleInterface = function() {
 	if ($(".interface:hidden").length === 0) {
 		$(".interface").fadeOut(500, updateLayoutHeight);
-		$("#hideInterface").html("[ Show Interface ]");
+		$("#hideInterface").html("[ Show ]");
 		$("#hideInterface").css("opacity", "0.5");
 	} else {
 		$(".interface").fadeIn(500);
-		$("#hideInterface").html("[ Hide Interface ]");
+		$("#hideInterface").html("[ Hide ]");
 		$("#hideInterface").css("opacity", "1");
 		updateLayoutHeight();
 	}

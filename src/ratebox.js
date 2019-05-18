@@ -14,19 +14,14 @@ function setGlobalRate(rate) {
 }
 
 rateboxGetRate = function() {
-	$.getJSON("https://blockchain.info/ticker?cors=true", function(data) {
-        setGlobalRate(data.USD.last);
+	$.getJSON("https://api.coingecko.com/api/v3/simple/price?ids=eos&vs_currencies=usd", function(data) {
+        setGlobalRate(data.eos.usd);
     });
-};
+}; 
 
 $(document).ready(function() {
 	// Bitstamp websocket API
-    var pusher = new Pusher('de504dc5763aeef9ff52');
-    var channel = pusher.subscribe('live_trades');
-    channel.bind('trade', function(ticker) {
-        setGlobalRate(ticker.price);
-        if (rateboxTimeout) clearTimeout(rateboxTimeout);
-    });
+    rateboxGetRate();
 });
 
 switchExchange = function(exchangeName) {
