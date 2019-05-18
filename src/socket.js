@@ -15,23 +15,21 @@ function TransactionSocket() {
 
 }
 
-TransactionSocket.init = function() {
+
+TransactionSocket.init = function(token) {
 	// Terminate previous connection, if any
 	if (TransactionSocket.connection)
 		TransactionSocket.connection.close();
 
-	var dfusetoken = 'mobile_c6d41c54b990990f7bb81385351a1728';
-
-
 	if ('WebSocket' in window) {
-		var token = 'eyJhbGciOiJLTVNFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTgyOTQxNTQsImp0aSI6IjI3NDY1YmFkLTJhYTQtNGZjOC1hMjQ3LWE2MDY2MTgwZDc2OSIsImlhdCI6MTU1ODIwNzc1NCwiaXNzIjoiZGZ1c2UuaW8iLCJzdWIiOiJ1aWQ6MHZpdGE2ZjgwOGM1NmJiNTFjODVlIiwiYWtpIjoiNzZhODAwZWE4NTQ3NTU4ZmIzOTU4N2ZkOWE5ZjVmOTJlNTFhYmMwOWQ4OGI5NWRjMTlmYzUwN2IzNThmMTE0OCIsInRpZXIiOiJmcmVlLXYxIiwic3RibGsiOi0zNjAwLCJ2IjoxfQ.m3wB8MHlWYsRU4_2wqbG-ybpXviCPuV1IuXN5X534fQ46F0Io8W5qoDEdFphV9ozUCDsXhT54pxnD-qygmj3kw';
+		//var token = 'eyJhbGciOiJLTVNFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTgyOTQxNTQsImp0aSI6IjI3NDY1YmFkLTJhYTQtNGZjOC1hMjQ3LWE2MDY2MTgwZDc2OSIsImlhdCI6MTU1ODIwNzc1NCwiaXNzIjoiZGZ1c2UuaW8iLCJzdWIiOiJ1aWQ6MHZpdGE2ZjgwOGM1NmJiNTFjODVlIiwiYWtpIjoiNzZhODAwZWE4NTQ3NTU4ZmIzOTU4N2ZkOWE5ZjVmOTJlNTFhYmMwOWQ4OGI5NWRjMTlmYzUwN2IzNThmMTE0OCIsInRpZXIiOiJmcmVlLXYxIiwic3RibGsiOi0zNjAwLCJ2IjoxfQ.m3wB8MHlWYsRU4_2wqbG-ybpXviCPuV1IuXN5X534fQ46F0Io8W5qoDEdFphV9ozUCDsXhT54pxnD-qygmj3kw';
 		var connection = new ReconnectingWebSocket('wss://mainnet.eos.dfuse.io/v1/stream?token='+token);
 		TransactionSocket.connection = connection;
 
 		StatusBox.reconnecting("blockchain");
 
 		connection.onopen = function() {
-			console.log('Blockchain.info: Connection open!');
+			console.log('websocket: Connection open!');
 			StatusBox.connected("blockchain");
 			var newTransactions = {
 				"type": "get_action_traces",

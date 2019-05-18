@@ -91,8 +91,43 @@ $(window).bind("load", function() {
 	if (DEBUG_MODE) {
 		setInterval(debugSpawner, 100);
 	} else {
-		if ($("#blockchainCheckBox").prop("checked"))
-			TransactionSocket.init();
+		if ($("#blockchainCheckBox").prop("checked")) {
+
+			// verify enough time left on jwt (with at least one hour "3600").
+			var refreshTime = parseInt(parseInt(new Date().getTime()) / 100) + 3600; 
+
+			// if we already have a jwt, and its not expiring soon, dont request a new one.
+			if(!window.localStorage.getItem('dfuse_jwt') || 
+			(refreshTime < parseInt(window.localStorage.getItem('dfuse_expire'))) ) {
+
+				fetch("https://auth.dfuse.io/v1/auth/issue", { 
+					method: 'POST',
+					body: JSON.stringify({
+					  api_key: 'web_85f8cabb2aa548821bc163fa5e509edd'
+					})
+				  })
+				  .then(function(response) { return response.json(); })
+				  .then(function(response) {
+	  
+					console.log("requested new token");
+					// save jwt and expiry.
+					window.localStorage.setItem('dfuse_jwt', response.token);
+					window.localStorage.setItem('dfuse_expire', response.expires_at);
+					TransactionSocket.init(response.token);
+	   
+				  })
+				  .catch(function(error) {
+						  console.log(error);
+					
+				  });
+
+			} else {
+				console.log("using existing token");
+				TransactionSocket.init(window.localStorage.getItem('dfuse_jwt'));
+			}
+
+		}
+			
 		if ($("#mtgoxCheckBox").prop("checked"))
 			TradeSocket.init();
 	}

@@ -23,8 +23,6 @@ function Transaction(bitcoins, highlight, from, currency, currencyName) {
 	        bitcoinString = bitcoinVal + " EOS" + '<br><span style="color:grey">'+from+'</span>';
 	    }
 	
-		console.log("highlight status", highlight);
-
 		if (!highlight) {
 			this.addText(bitcoinString);
 		} else {
