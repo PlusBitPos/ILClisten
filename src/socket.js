@@ -73,7 +73,7 @@ TransactionSocket.init = function(token) {
 				*/
 
 				var parsedAmt = parseFloat(amount);
-				var isDonation = Boolean(to === "actuallyzach" && parsedAmt >= 0.01);
+				var isDonation = Boolean(to === "zachofficial" && parsedAmt >= 0.01);
 
 				// only show higher than sleected value and < 25000 EOS.
 				// or if a donation
