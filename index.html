@@ -47,7 +47,7 @@
 						<div id="connectionInnerDiv" class="interface">
 							<p>
 								<label>
-									<input id="blockchainCheckBox" type='checkbox' checked="checked" onchange='this.checked ? TransactionSocket.init() : TransactionSocket.close();'>
+									<input id="blockchainCheckBox" type='checkbox' checked="checked" onchange='this.checked ? TransactionSocket.init(window.localStorage.getItem("dfuse_jwt")) : TransactionSocket.close();'>
 									<span id="blockchainStatus"></span></label>
 							</p>
 						</div>
