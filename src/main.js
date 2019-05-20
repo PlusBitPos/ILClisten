@@ -94,11 +94,13 @@ $(window).bind("load", function() {
 		if ($("#blockchainCheckBox").prop("checked")) {
 
 			// verify enough time left on jwt (with at least one hour "3600").
-			var refreshTime = parseInt(parseInt(new Date().getTime()) / 1000) + 3600; 
+			var refreshTime = parseInt((parseInt(new Date().getTime()) / 1000) + 3600); 
+			var expTime = parseInt(window.localStorage.getItem('dfuse_expire'));
+			var missingJWT = Boolean(!window.localStorage.getItem('dfuse_jwt'));
+			console.log("token check (missing, refreshTime, expTime)",missingJWT,refreshTime,expTime);
 
 			// if we already have a jwt, and its not expiring soon, dont request a new one.
-			if(!window.localStorage.getItem('dfuse_jwt') || 
-			(refreshTime > parseInt(window.localStorage.getItem('dfuse_expire'))) ) {
+			if( missingJWT || (refreshTime > expTime) ) {
 
 				fetch("https://auth.dfuse.io/v1/auth/issue", { 
 					method: 'POST',
