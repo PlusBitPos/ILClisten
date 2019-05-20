@@ -98,7 +98,7 @@ $(window).bind("load", function() {
 
 			// if we already have a jwt, and its not expiring soon, dont request a new one.
 			if(!window.localStorage.getItem('dfuse_jwt') || 
-			(refreshTime < parseInt(window.localStorage.getItem('dfuse_expire'))) ) {
+			(refreshTime > parseInt(window.localStorage.getItem('dfuse_expire'))) ) {
 
 				fetch("https://auth.dfuse.io/v1/auth/issue", { 
 					method: 'POST',
