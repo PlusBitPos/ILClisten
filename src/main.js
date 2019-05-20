@@ -94,7 +94,7 @@ $(window).bind("load", function() {
 		if ($("#blockchainCheckBox").prop("checked")) {
 
 			// verify enough time left on jwt (with at least one hour "3600").
-			var refreshTime = parseInt(parseInt(new Date().getTime()) / 100) + 3600; 
+			var refreshTime = parseInt(parseInt(new Date().getTime()) / 1000) + 3600; 
 
 			// if we already have a jwt, and its not expiring soon, dont request a new one.
 			if(!window.localStorage.getItem('dfuse_jwt') || 
