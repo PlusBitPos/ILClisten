@@ -1,11 +1,11 @@
-## EOSLIsten - EOS Transaction Visualizer ##
+## ILCoinLIsten - ILC Transaction Visualizer ##
 
-Current version hosted at [**EOSListen.com**](http://eoslisten.com/). Project forked from Bitcoin visualiser [**bistlisten.com**](http://bitlisten.com/)
+Project forked from Bitcoin visualiser [**bistlisten.com**](http://bitlisten.com/)
 
-Realtime EOS transaction visualizer written in HTML/Javascript. See and hear new transactions as they propagate through the EOS Network.
+Realtime ILC transaction visualizer written in HTML/Javascript. See and hear new transactions as they propagate through the ILC Network.
 
 ### Special Thanks ###
-[Maximillian Laumeister](https://www.maxlaumeister.com/), for building the core engine used to run EOSListen. (Donate to Max with Bitcoin: 1istendqWJ1mKvrdRUQZDL2F3tVDDyKdj)
+[Maximillian Laumeister] (Donate to Max with Bitcoin: 1istendqWJ1mKvrdRUQZDL2F3tVDDyKdj)
 
 ### Building ###
 
