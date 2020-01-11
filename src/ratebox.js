@@ -14,8 +14,8 @@ function setGlobalRate(rate) {
 }
 
 rateboxGetRate = function() {
-	$.getJSON("https://api.coingecko.com/api/v3/simple/price?ids=eos&vs_currencies=usd", function(data) {
-        setGlobalRate(data.eos.usd);
+	$.getJSON("https://api.coingecko.com/api/v3/simple/price?ids=ilcoin&vs_currencies=usd", function(data) {
+        setGlobalRate(data.ilcoin.usd);
     });
 }; 
 
