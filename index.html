@@ -18,16 +18,18 @@
 	<body>
 		<div id="header" class="serif interface">
 			<div id="rateBox">
-				<span id="rate">---</span> <span id="units">USD / EOS</span><br />
+				<span id="rate">---</span> <span id="units">USD / ILC</span><br />
 				<span>Coingecko</span>
 			</div>
-			<img src="images/logo.png" alt="EOSListen">
+			<img src="images/logo.png" alt="ILCoinListen">
 			<div id="headerInfo">
 				<p class="subdued">
-					By <a target="_blank" href="https://www.twitter.com/propelzach">Zach Alam</a> - <a target="_blank" href="https://github.com/zachalam/eoslisten">Source Code</a>; based on Bitlisten from <a href="https://www.maxlaumeister.com/" target="_blank">M. Laumeister</a> 	
+					Realtime ILCoin transaction visualizer.
 				</p>
 				<p>
-					Most donations get highlighted: <a href="https://bloks.io/account/zachofficial" target="_blank" id="donationAddress2"><span>zachofficial</span></a>					
+					Most donations get highlighted: <span id="donationAddress" qrtarget="ilcoin:1K6evpTcowkRgFB1cRRHJ8oVRh2WYDaUm1 ">1K6evpTcowkRgFB1cRRHJ8oVRh2WYDaUm1</span>
+					<br />
+					<span id="musicianDonation"></span>				
 				</p>
 			</div>
 		</div>
@@ -71,16 +73,16 @@
 
 							<p>Minimum EOS Value:
 									<select onchange='window.globalEOSValueSelected = this.value'>
-										<option value="0.01">0.01 EOS</option>
-										<option value="0.25">0.25 EOS</option>
-										<option value="0.5">0.50 EOS</option>
-										<option value="1">1.0 EOS</option>
-										<option value="2">2.0 EOS</option>
-										<option value="5" selected="selected">5.0 EOS</option>
-										<option value="10">10.0 EOS</option>
-										<option value="20">20.0 EOS</option>
-										<option value="50">50.0 EOS</option>
-										<option value="100">100 EOS</option>
+										<option value="0.01">0.01 ILC</option>
+										<option value="0.25">0.25 ILC</option>
+										<option value="0.5">0.50 ILC</option>
+										<option value="1">1.0 ILC</option>
+										<option value="2">2.0 ILC</option>
+										<option value="5" selected="selected">5.0 ILC</option>
+										<option value="10">10.0 ILC</option>
+										<option value="20">20.0 ILC</option>
+										<option value="50">50.0 ILC</option>
+										<option value="100">100 ILC</option>
 									</select>
 									</p>
 							<br />
