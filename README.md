@@ -1,4 +1,4 @@
-## ILCoinLIsten - ILC Transaction Visualizer ##
+## ILCoinListen - ILC Transaction Visualizer ##
 
 Project forked from Bitcoin visualiser [**bistlisten.com**](http://bitlisten.com/)
 
